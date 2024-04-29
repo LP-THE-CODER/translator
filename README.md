@@ -1,4 +1,3 @@
-Sure! Here's an updated version of the README file including an image and a live link:
 
 ---
 
@@ -52,4 +51,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Replace `https://example.com/translation_warrior.png` with the actual URL of your image and `https://example.com/language-translation-warrior` with the live link to your application.
+
