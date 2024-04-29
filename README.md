@@ -6,7 +6,7 @@ Sure! Here's an updated version of the README file including an image and a live
 
 Welcome to the Language Translation Warrior, your trusty companion in conquering language barriers!
 
-![Language Translation Warrior](https://example.com/translation_warrior.png)
+![Language Translation Warrior](translator.png)
 
 ## Overview
 
