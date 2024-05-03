@@ -1,5 +1,7 @@
 import streamlit as st
 from googletrans import Translator, LANGUAGES
+from gtts import gTTS
+import IPython.display as ipd
 
 # CSS style for the app
 STYLE = """
@@ -142,6 +144,11 @@ def translate_text(text, target_language='en'):
     translated_text = translation.text
     return translated_text
 
+def get_pronunciation(text, lang='en'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("pronunciation.mp3")
+    return "pronunciation.mp3"
+
 # Streamlit UI
 st.markdown(STYLE, unsafe_allow_html=True)
 st.markdown("<h1 class='title'><span class='icon'>⚔️</span>Language Translation Warrior</h1>", unsafe_allow_html=True)
@@ -186,6 +193,11 @@ if st.button("Charge into Battle!", key='translate_button', help="Click to trans
                     translated_text = translate_text(text_to_translate, target_language=target_language_code)
                 
                 st.markdown(f"<div class='translation'>{translated_text}</div>", unsafe_allow_html=True)
+                
+                # Pronunciation for translated text
+                pronunciation_file = get_pronunciation(translated_text, target_language_code)
+                st.audio(pronunciation_file, format='audio/mp3')
+                
         except Exception as e:
             st.markdown(f"<div class='error-message'>An error occurred: {str(e)}</div>", unsafe_allow_html=True)
     else:
@@ -199,14 +211,7 @@ st.markdown("<p class='rainbow-text'>Let's charge into battle and conquer new te
 st.markdown("<a href='https://www.linkedin.com/in/morla-lakshmi-prasanna-824072255'><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png' width='30' height='30'></a>&nbsp;&nbsp;<a href='https://github.com/LP-THE-CODER'><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZkTHDk9wFCnizM9J7jS8FQkSQkY3BPG_HvnkdetOYXw&s' width='30' height='30'></a>", unsafe_allow_html=True)
 st.markdown("<div style='text-align:center; margin: auto;'>", unsafe_allow_html=True)
 st.markdown("<p style='color: #000000;'>Developed by Lakshmi Prasanna</p>", unsafe_allow_html=True)
-st.image("Professional Profile Picture.png", width=150, caption="", use_column_width=False, output_format='png')  # Adjust width here
+st.markdown("<img src='Professional Profile Picture.png' width=150>", unsafe_allow_html=True)
 st.markdown("<p style='color: #000000;'>&copy; 2024</p>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-
-
-
-
