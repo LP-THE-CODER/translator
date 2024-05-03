@@ -142,7 +142,7 @@ def translate_text(text, target_language='en'):
     translator = Translator()
     translation = translator.translate(text, dest=target_language)
     translated_text = translation.text
-    return translated_text
+    return translated_text, translation.src
 
 def get_pronunciation(text, lang='en'):
     tts = gTTS(text=text, lang=lang)
@@ -187,16 +187,21 @@ if st.button("Charge into Battle!", key='translate_button', help="Click to trans
                 if target_language == "Auto Detect":
                     detected_language = Translator().detect(text_to_translate).lang
                     st.info(f"Detected Language: {LANGUAGES[detected_language]} ({detected_language})")
-                    translated_text = translate_text(text_to_translate)
+                    translated_text, source_language = translate_text(text_to_translate)
                 else:
                     target_language_code = [key for key, value in LANGUAGES.items() if value == target_language][0]
-                    translated_text = translate_text(text_to_translate, target_language=target_language_code)
+                    translated_text, source_language = translate_text(text_to_translate, target_language=target_language_code)
                 
                 st.markdown(f"<div class='translation'>{translated_text}</div>", unsafe_allow_html=True)
                 
                 # Pronunciation for translated text
                 pronunciation_file = get_pronunciation(translated_text, target_language_code)
                 st.audio(pronunciation_file, format='audio/mp3')
+                
+                # Pronunciation for original text
+                if source_language != 'en':
+                    original_pronunciation_file = get_pronunciation(text_to_translate, source_language)
+                    st.audio(original_pronunciation_file, format='audio/mp3')
                 
         except Exception as e:
             st.markdown(f"<div class='error-message'>An error occurred: {str(e)}</div>", unsafe_allow_html=True)
