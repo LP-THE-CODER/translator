@@ -198,9 +198,9 @@ if st.button("Charge into Battle!", key='translate_button', help="Click to trans
                 pronunciation_file = get_pronunciation(translated_text, 'en')
                 st.audio(pronunciation_file, format='audio/mp3')
                 
-                # Pronunciation for original text
+                # Pronunciation for original text (if not in English)
                 if source_language != 'en':
-                    original_pronunciation_file = get_pronunciation(text_to_translate, 'en')
+                    original_pronunciation_file = get_pronunciation(text_to_translate, source_language)
                     st.audio(original_pronunciation_file, format='audio/mp3')
                 
         except Exception as e:
